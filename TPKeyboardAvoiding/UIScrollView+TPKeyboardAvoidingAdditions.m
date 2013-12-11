@@ -232,11 +232,10 @@ static const int kStateKey;
     // If there is a top contentInset, also compensate for this so that subviewRect will not be placed under
     // things like navigation bars.
     offset = subviewRect.origin.y - padding - self.contentInset.top;
-    
-    // Constrain the new contentOffset so we can't scroll past the bottom. Note that we don't take the bottom
-    // inset into account, as this is manipulated to make space for the keyboard.
-    if ( offset > (contentSize.height - viewAreaHeight) ) {
-        offset = contentSize.height - viewAreaHeight;
+
+    // constrain the new contentOffset so we can't scroll either past the bottom
+    if ( offset > (contentSize.height + self.contentInset.bottom - viewAreaHeight) ) {
+        offset = contentSize.height + self.contentInset.bottom - viewAreaHeight;
     }
     
     // Constrain the new contentOffset so we can't scroll past the top, taking contentInsets into account
